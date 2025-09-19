@@ -1,31 +1,22 @@
-import { useState } from 'react'
+
+import { UseForm } from '../Hooks/UseForm';
 
 export const Login = () => {
 
-  const [formState, setFormState] = useState({
+  const initialForm = {
     nombre: '', 
     primerApellido : '',
     segundoApellido : '',
     email: '',
     nickname: ''
-  });
-
-  const { nombre, email, primerApellido, segundoApellido, nickname } = formState;
- 
-  const handleInput = ({ target }) => {
-    const { name, value } = target
-    setFormState({
-      ...formState,
-      [name]: value.trim()
-    })
-
   }
 
+  const { formState, handleInput} = UseForm(initialForm)
+  const { nombre, email, primerApellido, segundoApellido, nickname } = formState;
   const onSubmitForm = (event) => {
     event.preventDefault()
-    if(Object.values(formState).some(item => item.trim() === '')) return
+    if (Object.values(formState).some(item => item.trim() === '')) return
     console.log(formState)
-
   }
 
   return (
@@ -52,7 +43,7 @@ export const Login = () => {
         />
       </div>
 
-       <div className="mb-3">
+      <div className="mb-3">
         <label htmlFor="nombre" className="form-label">Segundo Apellido</label>
         <input
           type="text"
