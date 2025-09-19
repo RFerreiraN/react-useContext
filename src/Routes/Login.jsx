@@ -1,5 +1,6 @@
-
+import { useContext } from 'react';
 import { UseForm } from '../Hooks/UseForm';
+import { UsuarioContext } from '../Context/UsuarioContext';
 
 export const Login = () => {
 
@@ -10,17 +11,19 @@ export const Login = () => {
     email: '',
     nickname: ''
   }
-
+  const { usuario, setUsuario } = useContext(UsuarioContext)
   const { formState, handleInput} = UseForm(initialForm)
   const { nombre, email, primerApellido, segundoApellido, nickname } = formState;
   const onSubmitForm = (event) => {
     event.preventDefault()
     if (Object.values(formState).some(item => item.trim() === '')) return
-    console.log(formState)
+    setUsuario(formState)
   }
 
+
   return (
-    <form onSubmit={onSubmitForm}>
+  
+    <form onSubmit={onSubmitForm} className='container'>
       <div className="mb-3">
         <label htmlFor="nombre" className="form-label">Nombre</label>
         <input
